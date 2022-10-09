@@ -1,0 +1,80 @@
+= Injection de dépendance
+
+image:./injection.png[width=20%]
+
+[NOTE.speaker]
+====
+Nous avons parlé du langage, maintenant allons un peu plus loin.
+Regardons dans l'écosystème JS/TS les librairies qui peuvents tous aider.
+
+include::{includedir}/story.adoc[tag=injection]
+====
+
+== TypeDI
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=typedi]
+====
+
+== Mise en place
+
+[source, typescript, highlight='1|8|10-12|15|1-17']
+----
+@Service()
+class UsersService {
+    getUserByEmailWithPassword(email: string) {
+        return ...
+    }
+}
+
+@Service()
+class UsersController {
+    constructor(
+        public usersService: UsersService
+    ) {}
+
+    listUsers() {
+        return this.usersService.getUserByEmailWithPassword('mail');
+    }
+}
+----
+
+[NOTE.speaker]
+====
+* @Service => déclaration de présence dans le context (+ définition du scope)
+* Constructuer => pas de new
+* Identique à Angular.
+====
+
+
+== Configuration
+
+.main.ts
+[source, typescript]
+----
+import 'reflect-metadata';
+----
+
+.tsconfig.json
+[%step]
+[source, json]
+----
+{
+  //...
+  "compilerOptions": {
+      //...
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
+      //...
+  }
+  //...
+}
+----
+
+[NOTE.speaker]
+====
+* Deux petites config
+** Main de votre application
+** tsconfigs
+====

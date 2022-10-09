@@ -1,0 +1,346 @@
+= Drogué à l'hexagone, Node JS ne m'a pas vraiment aidé à rester clean ... Mais NestJS pourrait-il me sauver ?
+:toc:
+
+J'entre dans la salle, regarde autour de moi, et me sent à la fois impressionné par les lieux sobres et relativement grands, et rassuré par ceux qui l'occupe.
+Je m'installe et me rend compte que je suis le dernier.
+C'est le moment ou celui qui semble être l'animateur prend la parole.
+
+// tag::intro[]
+* Bonjour et bienvenue dans ce cercle de parole.
+Nous accueillons aujourd'hui un nouveau membre.
+* Bonjour, moi c'est Nicolas, dis-je un peu timoré.
+* Bonjour Nicolas, repris mon auditoire
+* Alors Nicolas, est-ce que tu veux bien nous raconter ce qui t'amène ici ?
+// end::intro[]
+
+
+// tag::errances[]
+Il y a quelques années, j'errais dans ma veille au gré des confs et des meetups, conscient que je pouvais faire des choses pour améliorer mon quotidien, et peut-être même celui de mes collègues...
+// end::errances[]
+
+// tag::couches[]
+Très ancré dans des projets dont la segmentation des responsabilités en couches avait largement fait ses preuves, j'étais convaincu qu'on tenait là quelques choses d'aboutis, et qu'il fallait simplement former !
+// end::couches[]
+
+// tag::lumiere[]
+Et puis en chemin, j'ai croisé le Domain Driven Design qui m'a un peu fait chanceler.
+
+* Qui en a entendu parler ?
+* Qui connait __bien__ ?
+* Qui le pratique ?
+// end::lumiere[]
+
+// tag::meaculpa[]
+J'ai plongé... DDD, clean architecture, modèle hexagonale.
+Alors ce n'est pas parfait, et je n'ai pas une pratique exemplaire, mais j'essaie...
+Pourquoi me direz-vous ?
+
+Sur le papier, ces concepts semblent répondre à pas mal de mes difficultés, et j'ai commencé à les expérimenter dans mon contexte technique, Java, principalement sur des API REST.
+// end::meaculpa[]
+
+WARNING: Pb de transition
+
+// tag::experience[]
+Le temps a passé et mes orientations DevOps m'ont conduites dans d'autres contextes... La suite de cette histoire parle et part d'un outil que j'ai dû faire pour m'outiller !
+// end::experience[]
+
+// tag::navigateur[]
+Au départ, un petit client, Vue3, pour aller taper les API de mes outils (Gitlab pour ne pas le citer).
+Puis, la complexité augmentant et l'expertise manquant, le client à migré en Angular (pas de jugement SVP !!!).
+// end::navigateur[]
+
+// tag::backend[]
+Mais rapidement, ce ne fut pas suffisant.
+J'ai eu besoin d'un d'injecter des règles métiers, de centraliser de la donnée partagée par différents utilisateurs, et de réagir à des évènements extérieurs au navigateur.
+Bref, il me fallait un backend.
+
+Rien de plus simple : springboot et c'est parti
+// end::backend[]
+
+// tag::node[]
+Mais non, je vous l'ai dit, j'ai changé de contexte.
+Ici, on fait beaucoup de Python, du Javascript, et du .Net. Et à nos heures perdue, du shell, powershell, et j'avais déja introduit du typescript avec Angular, et d'autres outils (mais c'est un autre sujet...)
+
+NodeJs devient alors une évidence... Chargé à bloque, j'ai tracé la route, franchis quelques cols, et pris quelques impasses...
+// end::node[]
+
+// tag::start[]
+Mais surtout comme j'ai trouvé peu d'aide sur ces sujets(bon, j'ai peut être mal cherché...), j'ai eu envie de vous partager cette aventure...
+// end::start[]
+
+<<<
+
+Je repris mon souffle après cette mise en contexte et regardais l'assemblée.
+Partagés entre étonnement, aterrement, doute et curiosité, je vis les regards interrogateurs de mes auditeurs posés sur moi.
+Je reconnus l'air hagard des gens à qui je raconte des choses tout à fait incompréhensibles mais qui n'osent pas m'interrompre ayant peur de passer pour des ignares.
+
+// tag::bases[]
+Attendez, je sens que tout le monde n'a pas le même vocabulaire...
+On va repartir sur l vocabulaire pour être sûr que tout le monde a les mêmes bases.
+Comme ça, je pourrais vous expliciter ce que j'ai voulu faire
+// end::bases[]
+
+// tag::DDD[]
+Revenons sur cette notion de modèle hexagonal, voir de DDD.
+Le principe, dumoins quand on se contente de le dessiner, est relativement simple.
+
+On va considérer un ensemble d'objets/fonctions/méthode qu'on va appeler  domaine (métier)! Et on va essayer de suivre trois règles :
+
+* Toute chose dans ce domaine est nommée selon le vocabulaire utilisé par le métier
+* Toutes les règles et interactions entre ces données sont implémentées ici
+* Aucun élément technique n'existe dans ce domaine
+// end::DDD[]
+
+// tag::spi[]
+On va ensuite identifier ses sources de données (base, api externes, etc).
+Les positionner à l'extérieur.
+Le domaine va décider quels sont ses besoins (interfaces) dans son langage (modèle métier) et demander à ses sources de donner de se débrouiller pour implémenter les fonctionnalités techniques.
+// end::spi[]
+
+// tag::api[]
+Enfin le domaine va exposer des méthodes pour interagir avec lui. Autrement dit, une interface qu'il va implémenter, et qui pourra être consommé au travers de controller REST.
+
+NOTE: Je n'ai pas utilisé le terme API REST pour éviter les confusions.
+// end::api[]
+
+// tag::haxagone[]
+Et normalement là, on commence à voir l'hexagone se dessiner.
+L'un des intérêts de ceci est que si on sépare correctement les composants de notre application, des développeurs qui ne maitriseraient pas ou peu ce type d'architecture pourraient faire évoluer l'application sans trop d'erreur.
+// end::haxagone[]
+
+// tag::focus[]
+Regardons quand même un peu plus près une des relations entre le domaine et un ressource de données.
+
+Ici, votre domaine va manipuler des interfaces (signature de fonctions). définies dans le(s) composant(s) SPI.
+Un composant technique (Base de données) qui va implémenter les méthodes du SPI. Ce concept est appelé inversion de contôle.
+
+Au runtime, on aura une injection de dépendance qui va associer une implémentation à l'interface pour servir le domaine.
+
+// end::focus[]
+
+
+// tag::gogogo[]
+Donc on est partis !
+Typescript, un petit express pour exposer les endpoints rest, plus qu'à trouver une librairie pour assurer l'injection de dépendance, une autre pour l'inversion de contrôle et le tour est (presque) joué.
+
+A ce stade, j'ai la profonde conviction que la plus grosse difficulté serait la modularisation de l'application, mais je mets ce point de coté pour le moment...
+// end::gogogo[]
+
+// tag::disclamer[]
+Petite précision quand même.
+Je vous ai dit que je n'étais pas un dogmatique.
+Et dans ce sens, je vais probablement m'autoriser quelques petits coups de canif dans le contrat du domaine !
+Surtout, si vous n'êtes pas d'accord, si vous avez une meilleure méthode, n'hésitez pas à venir en parler... C'est en échangeant sur nos pratiques qu'on apprend !!!
+// end::disclamer[]
+
+<<<
+
+// tag::injection[]
+Le premier sujet est l'injection de dépendance...
+
+Ce point consiste à définir des objets qui seront instanciés par le système au moment de leur utilisation. Selon les contextes ces objets peuvent avoir des portées différentes, basiquement : application (singleton), session (contexte utilisateur) ou requête (éphémère).
+// end::injection[]
+
+// tag::typedi[]
+Une des librairies les plus populaires dans le monde Node JS est TypeDI.
+Je teste, galère, réussi à injecter dans mes différents modules !
+// end::typedi[]
+
+WARNING: Sample
+
+// tag::typedi-sample[]
+Au passage, je mets aussi quelques utilitaires, des loggers, un système de controller par annotation...
+// end::typedi-sample[]
+
+WARNING: Sample
+
+// tag::inversion[]
+Passons à l'inversion de contrôle...
+// end::inversion[]
+
+// tag::inversify[]
+Je poursuis mes recherches de librairie et je trouve Inversify qui semble répondre au besoin.
+
+On regarde comment ça fonctionne...
+// end::inversify[]
+
+
+// tag::echec[]
+La première tentative est assez infructueuse, et pour cause...
+Intégrer Inversify dans ma structure n'était simplement pas pertinent pour la simple raison qu'il a strictement le même périmètere que TypeDI.
+C'est un peu comme si, en Java, vous essayer d'avoir un contexte Spring dans un écosystème CDI de JavaEE!
+(C'est possible, ce n'est pas fait pour, et ça marche entre mal et très mal !)
+
+Parce que oui, malgré leurs noms TypeDI gère aussi l'inversion de contrôle, et Inversify, l'injection de dépendance !
+// end::echec[]
+
+// tag::try[]
+Bref, l'un ou l'autre sont utilisables, mais la complexité technique pour ajouter un service m'a rapidement filé des boutons !
+Désolé pour le nouveau parallèle Java, mais c'est un peu comme configurer spring en XML ...
+// end::try[]
+
+
+// tag::hole[]
+J'étais un peu au fond du trou.
+Désespéré...
+Je ne pouvais pas croire que dans un écosystème aussi populaire, je ne pourrais pas trouver un vrai cadre de travail qui me permette d'implémenter sereinement le modèle hexagonale...
+// end::hole[]
+
+// tag::hope[]
+Et là ... Nest JS à croisé mon chemin !
+
+<<<
+
+Alors je sais que vous attendez tous de savoir comment NestJS à répondu à mes problématiques...
+Mais comme j'ai envie de finir cette présentation sur une note positive, je vais avant vous exposer deux autres problématiques, soit que je n'ai pu résoudre, soit où la solution ne me plait pas complètement.
+// end::hope[]
+
+// tag::define[]
+Une des pratiques en TypeScript consiste à définir son modèle de données sous forme d'interface. Cette méthode est particulièrement pratique pour  limiter les mappings tout en s'assurant que les objets transitant entre les modules possèdent les attributs attendus.
+// end::define[]
+
+WARNING: sample
+
+// tag::interface-attr[]
+Sauf que nous avons là deux problèmes.
+
+Le premier est que quand vous renvoyez un objet mongoDB au travers vos modules jusqu'au endpoint REST, vous transiter potentiellement par le réseau des données que vous ne souhaitez pas. Au hasard des identifiants techniques, ou tout autre éléments présents dans votre base que vous ne voulez pas voir en sortir... (last update, version).
+// end::interface-attr[]
+
+// tag::interface[]
+Le second est que si votre client est aussi du JS (ou TS), répondant aux mêmes pratiques (interfaces), s'il met à jour l'objet, il y a fort à parier qu'il vous demande une mise à jour avec TOUS les champs que vous avez envoyés sans en avoir l'intention !
+// end::interface[]
+
+// tag::builder[]
+On peut cependant faire des choses assez étrange voir un poil piquante mais qui peuvent nous aider pour la suite.
+
+WARNING: Sample Builder
+// end::builder[]
+
+// tag::odd-types[]
+Autre difficulté de typescript, les différentes valeurs bizarres : undefined, null, unknown, void, any.
+Je ne vais pas entrer dans les détails ici, mais si vous êtes issu du monde .Net, Java, PHP (et j'en oublie) ces différents types ne vont pas vous apparaitre triviaux.
+// end::odd-types[]
+
+// tag::segregations[]
+Un dernier point qui va vraiment m'intéresser dans l'organisation hexagonale et d'avoir un découpage strict des modules pour éviter les __fuites__.
+// end::segregations[]
+// tag::java[]
+En java et en C# les choses sont assez simples. Que vous utilisiez graddle, maven ou nuggets, il est très simple de construire des sous modules, de monter des dépendances, et d'en interdire d'autre. Moyennant que vous nous touchiez pas à vos dépendances, vous avez relativement protégé votre coœur métier.
+Il vous faudra seulement ajouter un module chapeau qui viendra tout assembler pour que les injections fonctionnent.
+// end::java[]
+
+// tag::npm[]
+Avec NPM ce point est adressable, mais est beaucoup moins trivial.
+
+WARNING: https://javascript.plainenglish.io/how-to-create-multi-module-nodejs-applications-9aff2d73dc17
+// end::npm[]
+
+<<<
+
+// tag::nest[]
+Et Nest dans tout ça ?
+
+Quand je tombe par hasard sur cet outil, j'identifie à peu près tout ce que je cherchais :
+
+* Gestion Modulaire (on verra plus tard, mais cool)
+* Injection de dépendances
+* Inversion de contrôle
+
+Et en plus j'ai :
+
+* Endpoints par annotation (avec intégration swagger)
+* Gestion d'intercepteurs (logs)
+* Intégration de filtres (erreurs)
+// end::nest[]
+
+
+// tag::module[]
+La gestion modulaire va nous permettre de construire notre découpage hexagonal
+
+WARNING: sample
+// end::module[]
+
+// tag::rest[]
+La gestion des endpoint intégré à Nest est basée sur __express__, un standard pour les API NodeJS.
+
+WARNING: Sample
+// end::rest[]
+
+// tag::swagger[]
+Et un petit swagger en bonus...
+
+WARNING: sample
+// end::swagger[]
+
+// tag::inject[]
+Les providers vons nous permettre d'assurer l'injection de dépendances.
+
+WARNING: sample
+// end::inject[]
+
+
+// tag::boilerplate[]
+En revanche, pour l'inversion de controle, il y a un peu plus de boilerplate.
+Vous vous souvenez des interfaces qui disparaissent ? Ca empeche pour le moment l'injection au run... Il va falloir expliciter !
+
+WARNING: sample
+// end::boilerplate[]
+
+// tag::tips[]
+Il est à noter que le fichier de constante évite de saisir des chaines à la main, et donc les fautes de frappe particulièrement pénible dans ce genre d'exercice.
+// end::tips[]
+
+// tag::middleware[]
+Mes deux petits bonus résident dans la gestion native de filtres et de middleware (on retrouve ces derniers aussi dans express)
+// end::middleware[]
+
+WARNING: sample middleware
+
+// tag::filters[]
+WARNING: sample filter
+// end::filters[]
+
+// tag::threadlocal[]
+Et le dernier Hack, une gestion équivalente à un theradlocal en Java.
+Pour ceux qui ne connaiteraient pas ce principe, il s'agit au niveau endpoint de stocker les infos (user par example) dans un contexte contraint à la requête pour l'utiliser plus loin (base de donnée) sans avoir à la passer en paramètre de toutes vos fonctions !
+
+WARNING: sample
+// end::threadlocal[]
+
+<<<
+
+// tag::synthese[]
+Et voilà, l'aventure touche à sa fin...
+
+Il est clair que ce voyage a été remplis de péripéties de toutes sortes, mais il y a plusieurs choses qui me semblent intéressante à en tirer.
+// end::synthese[]
+
+// tag::hexa-js[]
+Si le modèle hexagonal est empli de promesse auxquelles je crois fermement, il semble évident que le mettre en œuvre de facon strict tout en restant accessible au plus grand nombre n'est pas possible dans les écosystèmes.
+// end::hexa-js[]
+
+// tag::concept[]
+En maitriser les concepts va cependant nous aider à trouver les outils pour y répondre ou accepter quelques coups de canif dans le contrat. Mais si vous vous faites ça, gardez bien à l'esprit les gains que vous devrez en tirer !
+// end::concept[]
+
+
+// tag::tools[]
+Typescript n'est peut-être pas le meilleur écosystème pour mettre en place votre première architecture hexagonale, mais hormis les limitations du langage lui-même, les outils sont là pour répondre aux concepts !
+
+Et NestJS est surement ma plus belle découverte dans ce périple...
+// end::tools[]
+
+// tag::redo[]
+Pour vous dire, j'ai du refaire un endpoint pour une application évènementiel, j'ai poussé notre groupe à nous lancer sur Nest.
+Mon excuse était que comme on ne savait pas qui allait venir sur le projet, en faisant ca on ne se mettait à dos aucune communauté.
+
+Parce qu'étrangement, un dev PHP, JAVA ou .Net est pret à aller faire du TS en back (il en fait un peu en front !!!), mais ne fera pas de PHP si il fait du JAVA ou inversement !
+Et en plus nos amis fronteux sont devenus fullstack le temps d'un projet !!!!
+// end::redo[]
+
+// tag::framework[]
+Alors oui, ce n'est surement pas parfait, mais c'est clairement un réel cadre de travail (framework) pour développer des Endpoint REST rapidement, efficacement, et en limitant le boilerplate technique.
+Le tout avec ou sans votre architecture applicative préférée...
+// end::framework[]
+

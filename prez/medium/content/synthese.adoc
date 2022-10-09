@@ -1,0 +1,67 @@
+= Une belle aventure ?
+:includedir: ../partials
+
+image:./livre.png[]
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=synthese]
+====
+
+== Hexa, un contexte clean ?
+
+image:./hexa-all.png[]
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=hexa-js]
+====
+
+[transition=fade-out]
+== Les bons outils
+
+image:./all-synthese-icon.png[width=60%]
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=tools]
+====
+
+[transition=fade]
+== Les bons outils
+
+image:./all-synthese-js.png[width=60%]
+
+[NOTE.speaker]
+====
+* TypeDI / Inversify
+* NPM / Yarn
+====
+
+[transition=fade-in]
+== Les bons outils
+
+image:./all-synthese-nest.png[width=60%]
+
+
+== Un vrai cadre de travail...
+
+image:./nestjs.svg[]
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=framework]
+====
+
+
+== Et si c'était à refaire ?
+
+[%step]
+image:./mysterium.png[width=60%]
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=redo]
+
+*50 mins*
+====

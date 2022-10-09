@@ -1,0 +1,109 @@
+[.story.background]
+= L'histoire
+:includedir: ../partials
+
+image:./livre.png[]
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=errances]
+====
+
+[%notitle]
+[.story.background]
+== Mes errances...
+
+image:./millefeuille.jpg[]
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=couches]
+====
+
+[%notitle]
+== La lumière...
+
+image:./postit.jpg[]
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=lumiere]
+====
+
+[%notitle]
+== La voie du craft
+
+image:./swcrafters-nantes.jpg[]
+
+[NOTE.speaker]
+====
+=> Logo du meetup SWCrafters à Nantes, j'en profite je leur fait un peu de pub !
+
+include::{includedir}/story.adoc[tag=meaculpa]
+====
+
+[%notitle]
+== Mise en pratiques
+
+image:./intervenants-nicolas.png[]
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=experience]
+
+La suite du talk part de mon point de vue. +
+Si je ne veux pas être jugé, je dois vous donner mon contexte pour vous aider à comprendre et à adapter mes conclusions à VOUS, à VOTRE contexte.
+====
+
+
+[transition=fade-out]
+== Un client dans le navigateur !
+
+[%step]
+image:./vue.svg[height=250em]
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=navigateur]
+====
+
+[transition=fade-in]
+== Un client dans le navigateur !
+
+image:./angular-icon.svg[height=250em]
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=navigateur]
+====
+
+[transition=fade-out]
+== Ajout d'un backend
+
+[%step]
+image:./spring.svg[]
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=backend]
+====
+
+[transition=fade-in]
+== Ajout d'un backend
+
+[%step]
+image:./nodejs-icon.svg[]
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=node]
+====
+
+== Mais ca ne fait que commencer !
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=start]
+
+*5 mins*
+====

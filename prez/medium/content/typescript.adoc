@@ -1,0 +1,249 @@
+= Dans les entrailles de Typescript
+:includedir: ../partials
+
+image:./typescript-icon.svg[width=20%]
+
+[NOTE.speaker]
+====
+Commencons par regarder les éléments natifs au langage...
+
+On va parler modèle, Programmation Orienté Objet et Interface.
+====
+
+== Définir son modèle
+
+[source]
+----
+//Endpoint
+interface RestUser {
+    name: string
+    lastname: string
+}
+
+//Domain
+interface User {
+    name: string
+    lastname: string
+    birthDate: Date
+}
+
+//Databases
+interface DataUser {
+    version: number
+    name: string
+    lastname: string
+    birthDate: Date
+}
+----
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=define]
+====
+
+[%notitle, transition=fade-out]
+== Transmission
+
+[source, typescript,  highlight='3..6|14..16|25-27|14..16|3..6|8' ]
+----
+class UserEndpoint {
+    service = new UserService()
+    get(user: login): RestUser {
+        return this.service.readUser(login)
+    }
+
+    post(user: RestUser): RestUser {
+        return this.service.writeUser(user)
+    }
+}
+
+class UserService {
+    repository = new UserRepository()
+    readUser(login: string): User {
+        return this.repository.read(login)
+    }
+
+    writeUser(user: User): User {
+        return this.repository.write(user)
+    }
+}
+
+class UserRepository {
+    database = new UserRepository()
+    read(login: string): User {
+        return {} as DataUser
+    }
+
+    write(user: User): User {
+        return  {} as DataUser
+    }
+}
+----
+
+[NOTE.speaker]
+====
+Quand on va vouloir l'utiliser, tout va bien se passer...
+
+include::{includedir}/story.adoc[tag=interface-attr]
+
+Ceci dit, ici, on a une ligne qui ne compile pas !
+Et c'est normal, il manque un attribut à RestUser pour apeller le User "Domain"
+
+====
+
+[%notitle, transition=fade-in]
+== Oui, mais...
+
+[source, typescript, highlight=8]
+----
+
+class UserEndpoint {
+    service = new UserService()
+    get(user: string): RestUser {
+        return this.service.readUser(user)
+    }
+
+    post(user: RestUser): RestUser {
+        return this.service.writeUser(user as User)
+    }
+}
+
+class UserService {
+    repository = new UserRepository()
+    readUser(login: string): User {
+        return this.repository.read(login)
+    }
+
+    writeUser(user: User): User {
+        return this.repository.write(user)
+    }
+}
+
+class UserRepository {
+    database = new UserRepository()
+    read(login: string): User {
+        return {} as DataUser
+    }
+
+    write(user: User): User {
+        return  {} as DataUser
+    }
+}
+----
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=interface]
+====
+
+== Un petit de tricks...
+
+[%step]
+[source, typescript, highlight='4|5-7|8']
+----
+export class TrophyPlayerMapper {
+  convertTo(trophyPlayerData: TrophyPlayerData) {
+    if (!!trophyPlayerData) {
+      return TrophyPlayer.getBuilder().
+        .with('id', trophyPlayerData.id)
+        .with('type', trophyPlayerData.type)
+        .with('code', trophyPlayerData.code)
+        .build()
+    } else {
+      return trophyPlayerData
+    }
+  }
+}
+----
+
+[NOTE.speaker]
+====
+On a des interfaces, donc pas de constructeur, on construit nos objets à la volée.
+On a des mappers peu élégants.
+
+include::{includedir}/story.adoc[tag=builder]
+====
+
+== ... qui pique !
+
+[source, typescript]
+----
+export class ObjectBuilder<Target, Supplied> {
+  constructor(private target: Partial<Target>) {}
+
+  with<T extends Omit<Target, keyof Supplied>, K extends keyof T>(key: K, value: T[K]) {
+    const target: Partial<Target> = { ...this.target, [key]: value }
+
+    return new ObjectBuilder<Target, Supplied & Pick<T, K>>(target)
+  }
+
+  build() {
+    return this.target as Target
+  }
+}
+
+----
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=builder]
+====
+
+== Vous avez dit bizarre ?
+
+[%step]
+* Types : any, unknown, void
+* Valeurs : null, undefined
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=odd-types]
+====
+
+== Un des effets de la transpilation
+
+[source, typescript]
+----
+export interface MessagesService {
+    success: (message: MessageKey, broadcast: boolean, params?: any) => void
+    error: (message: MessageKey, broadcast: boolean, params?: any) => void
+    info: (message: MessageKey, broadcast: boolean, params?: any) => void
+}
+
+export class MessagesServiceImpl implements MessagesService {
+
+    success(message: MessageKey, broadcast: boolean = true, params?: any) {
+        //...
+    }
+
+    error(message: MessageKey, broadcast: boolean = true, params?: any) {
+        //...
+    }
+
+    info(message: MessageKey, broadcast: boolean = true, params?: any) {
+        //...
+    }
+}
+
+
+----
+
+[NOTE.speaker]
+====
+* Les interfaces disparaissent à la transpilation
+
+=> on en reparle !!!
+====
+
+== Synthèse
+
+
+[NOTE.speaker]
+====
+* Différences comparatives aux autres languages
+* Faiblesse de la flexibilité induite par les modèles
+
+=> On est d'accord, rien de rédhibitoire, mais des points d'attention dont on se serait passé !
+
+*20 mins*
+====

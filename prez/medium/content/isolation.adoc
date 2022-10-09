@@ -1,0 +1,130 @@
+= L'isolation...
+:includedir: ../partials
+
+image:./isolation.png[width=20%]
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=segregations]
+====
+
+== Ca marche comment ailleurs ?
+
+image:./hexa-focus-invers.png[width=60%]
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=java]
+====
+
+== NPM et ses modules
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=npm]
+====
+
+== Les workspaces
+
+
+.package.json (app)
+[source, json]
+----
+{
+  //...
+  "workspaces":[
+    "app-models",
+    "app-business-api",
+    "app-business",
+    "app-entrypoint"
+  ]
+  //...
+}
+----
+
+[%notitle]
+== Par dépendances
+
+.package.json (app-business)
+[source, json, highlight=10-15]
+----
+{
+   "name":"app-business",
+   "version":"1.0.0",
+   "description":"Domaine métier",
+   "devDependencies":{
+      "@types/node":"^17.0.8",
+      "ts-node":"^10.4.0",
+      "typescript":"^4.5.4"
+   },
+   "dependencies":{
+      "app-models":"../app-models",
+      "app-business-api":"../app-business-api",
+      "app-data-spi":"../app-data-spi",
+      ... <1>
+   }
+}
+----
+<1> Autres dépendances minimales (pas d'éléments techniques dans le domaine)
+
+[%notitle]
+== accès data
+
+.package.json (app-data)
+[source, json, highlight=10-15]
+----
+{
+   "name":"app-data",
+   "version":"1.0.0",
+   "description":"Implémentation d'accès aux données dans Mongo",
+   "devDependencies":{
+      "@types/node":"^17.0.8",
+      "ts-node":"^10.4.0",
+      "typescript":"^4.5.4"
+   },
+   "dependencies":{
+      "app-models":"../app-models",
+      "app-data-spi":"../app-data-spi",
+      "mongoose": "^6.2.8",
+      ... <1>
+   }
+}
+----
+<1> Autres dépendances techniques pour votre module de base de données.
+
+[%notitle]
+== Et on assemble !
+
+.package.json (app-server)
+[source, json]
+----
+{
+   "name":"app-server",
+   "version":"1.0.0",
+   "description":"Server app",
+   "main":"src/app.ts",
+   "scripts":{
+      "start":"tsc src/app.ts --esModuleInterop && node src/app.js"
+   },
+   "dependencies":{
+      "express":"^4.17.2",
+      "app-models":"../app-models",
+      "app-business-api":"../app-business-api",
+      "app-business":"../app-business",
+      "app-data-spi":"../app-data-spi",
+      "app-data":"../app-data",
+      "app-entrypoint":"../app-entrypoint"
+
+   }
+}
+----
+
+[NOTE.speaker]
+====
+
+Je ne vais pas rentrer dans les détails ici,
+mais sachez qu'en utilisant ces fonctionnalités de NPM,
+il est possible d'isoler les modules les uns des autres.
+
+*35 mins*
+====

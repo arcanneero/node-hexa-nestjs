@@ -1,0 +1,118 @@
+= Inversion de contrôle
+
+image:./inversion.png[width=20%]
+
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=inversion]
+====
+
+== Objectif
+
+[source, typescript, highlight='1..3|6|14..20']
+----
+interface UsersInterface {
+    getUserByEmail: (email: string) => Promise<User>;
+}
+
+@Service()
+class UsersService implements UsersInterface  {
+    getUserByEmail(email: string) {
+        return ...
+    }
+}
+
+@Service()
+class UsersController {
+    constructor(
+        public usersInterface: UsersInterface
+    ) {}
+
+    getMe(email: string) {
+        return this.usersInterface.getUserByEmail(email);
+    }
+}
+----
+
+== Inversify
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=inversify]
+
+include::{includedir}/story.adoc[tag=echec]
+====
+
+== Mise en place
+
+.Interface
+[source, typescript]
+----
+interface UsersService {
+    getUserByEmail: (email: string) => Promise<User>;
+}
+----
+
+.Implémentation
+[%step]
+[source, typescript, highlight='1-7|1']
+----
+@injectable()
+class UsersServiceImpl implements UsersService {
+
+    getUserByEmail(email: string) {
+        return ...
+    }
+}
+----
+
+.Endpoint
+[%step]
+[source, typescript, highlight='3|7|13|7']
+----
+import {interfaces} from "inversify-express-utils";
+
+@injectable()
+class UsersController implements interfaces.Controller {
+
+    constructor(
+        @Inject(SERVICES.Users) private readonly userService: UsersService
+    ) {}
+
+    @Get()
+    @HttpCode(200)
+    getMe(email: string) {
+        return this.userService.getUserByEmail(email);
+    }
+}
+----
+
+== Définition des implémentations
+
+[source, typescript]
+----
+const SERVICES = {
+    Users: Symbol.for("UsersServiceImpl")
+}
+----
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=try]
+====
+
+== TypeDI et Inversify
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=echec]
+====
+
+== La lumière...
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=hope]
+*30 mins*
+====

@@ -1,0 +1,93 @@
+= Mais de quoi parle-t-on exactement ?
+:includedir: ../partials
+
+image::./destructure.jpg[]
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=bases]
+====
+
+[%notitle]
+== Un domain unique...
+
+image::./hexa-domain.png[width=30%]
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=DDD]
+====
+
+[%notitle]
+== Des sources de données
+
+image::./hexa-domain-spi.png[width=60%]
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=spi]
+
+WARN: On peut considérer ces SPI comme un même ensemble, le métier n'ayant pas lieu de connaitre la source de la donnée qu'il manipule.
+====
+
+[%notitle]
+== Et on expose...
+
+image::./hexa-domain-api.png[width=60%]
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=api]
+====
+
+[%notitle]
+== Isolation forte
+
+image::./hexa-all.png[width=100%]
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=haxagone]
+====
+
+[%notitle]
+== Par inversion de controle
+
+image::./hexa-focus-invers.png[width=100%]
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=focus]
+====
+
+[%notitle]
+== En synthèse
+
+image::./all-synthese.png[width=60%]
+
+[NOTE.speaker]
+====
+En plus de la notion de domaine, on va se focalise sur 3 concepts importants pour la suite :
+
+* L'injection de dépendances
+* L'inversion de contrôle
+* Isolation des composants
+====
+
+== Et c'est parti...
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=gogogo]
+
+====
+
+
+== Disclamer
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=disclamer]
+
+*10 mins*
+====

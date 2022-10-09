@@ -1,0 +1,471 @@
+= On y est...
+:includedir: ../partials
+
+image:./nestjs.svg[]
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=nest]
+====
+
+== Une petite injection ?
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=inject]
+====
+
+[%step]
+[source, typescript, highlight='1-12|1|9']
+----
+@Injectable()
+export class UsersService  {
+    constructor() {}
+    ...
+}
+
+export class UtilisateursController {
+    constructor(
+        @Inject private readonly userService: UsersService
+    ) {
+    }
+}
+----
+
+
+== Et hop, on inverse !
+
+[%step]
+.endpoint.controller.ts
+[source, typescript, highlight='1-16|13']
+----
+export interface UsersService {
+    ...
+}
+
+@Injectable()
+export class UsersServiceImpl implements UsersService {
+    constructor() {}
+    ...
+}
+
+export class UtilisateursController {
+    constructor(
+        @Inject('Users') private readonly userService: UsersService
+    ) {}
+}
+----
+
+.business.module.ts
+[%step]
+[source, typescript, highlight='1-6|3|4']
+----
+@Module({
+    imports: [DataModule],
+    providers: [ {provide: 'Users', useClass: UsersServiceImpl} ],
+    exports: [ 'Users' ]
+})
+export class BusinessModule {}
+----
+
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=boilerplate]
+====
+
+== On ne sait jamais ...
+
+[%step]
+[source, typescript]
+----
+export const SERVICES = {
+    Users: 'users.service',
+}
+----
+
+[%step]
+[source, typescript, highlight='13|19-20']
+----
+export interface UsersService {
+    ...
+}
+
+@Injectable()
+export class UsersServiceImpl implements UsersService {
+    constructor() {}
+    ...
+}
+
+export class UtilisateursController {
+    constructor(
+        @Inject(SERVICES.Users) private readonly userService: UsersService
+    ) {}
+}
+
+@Module({
+    imports: [DataModule],
+    providers: [ {provide: SERVICES.Users, useClass: UsersServiceImpl} ],
+    exports: [ SERVICES.Users ]
+})
+export class BusinessModule {}
+----
+
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=tips]
+====
+
+== Un projet multi-package
+
+Passage du mode *Standard* à *Monorepo*.
+
+
+[NOTE.speaker]
+====
+Expérimentation encore en cours. +
+Pas de feedback dessus pour le moment. +
+J'espère avoir quelques choses en plus à raconter... +
+Mais quand on lit la doc, ca correspond complètement à ce que je souhaite faire.
+
+====
+
+== Introduction de librairies
+
+.nest-cli.json
+[source, json, highlight='1-30|4|9|11|21|10-18']
+----
+{
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "src",
+  "monorepo": true,
+  "root": "main",
+  "compilerOptions": {
+    ...
+  },
+  "projects": {
+    "business": {
+      "type": "library",
+      "root": "libs/app-business",
+      "entryFile": "index",
+      "sourceRoot": "libs/app-business/src",
+      "compilerOptions": {
+        ...
+      }
+    },
+    ...
+    "aggregator": {
+      "type": "application",
+      "root": "app/aggregator",
+      "entryFile": "main",
+      "sourceRoot": "app/aggregator/src",
+      "compilerOptions": {
+        ...
+      }
+    }
+}
+----
+
+== Et une configuration...
+
+.tsconfig.json
+[source, json]
+----
+"paths": {
+    "@app/business": [
+        "libs/app-business/src"
+    ],
+    "@app/business/*": [
+        "libs/business/src/*"
+    ]
+}
+----
+
+== Mais Nest c'est plus que celà ...
+
+== Des controllers...
+
+...par annotation
+
+[%step]
+[source, typescript, highlight='1-|1|6-7|8|12-13|21-22']
+----
+@Controller('utilisateurs')
+export class UtilisateursController {
+
+    constructor() {}
+
+    @Post()
+    @Header('content-type', 'application/json')
+    login(@Body("token") token: string) {
+        ...
+    }
+
+    @Get('/:id')
+    getUserById(@Param('id') id: string) {
+        ...
+    }
+
+    @Put('/:id')
+     put(@Param('id') id: string, @Body() body: User) {
+        ...
+    }
+
+}
+----
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=rest]
+====
+
+== Et documenté s'il vous plait !
+[%step]
+[source, typescript, highlight='1-|1|8-12|13-14|6']
+----
+import {DocumentBuilder, SwaggerModule} from "@nestjs/swagger";
+...
+
+async function bootstrap() {
+    const app = await NestFactory.create(AppModule);
+    app.setGlobalPrefix('api');
+
+    const config = new DocumentBuilder()
+        .setTitle('Board')
+        .setDescription('Tableau de bord d\'aide au déploiement')
+        .setVersion('1.0')
+        .build();
+    const document = SwaggerModule.createDocument(app, config);
+    SwaggerModule.setup('api', app, document);
+    //...
+}
+
+bootstrap();
+----
+
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=swagger]
+====
+
+== Encapsuler les appels
+
+[%step]
+[source, typescript, highlight='1-|1-2|5|6-8|9|10-12']
+----
+@Injectable()
+export class LoggingInterceptor implements NestInterceptor {
+    private readonly logger = new Logger(LoggingInterceptor.name);
+
+    intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
+        const resuqestId = getNamespace("board")!.get('requestId')!;
+        this.logger.debug(`${resuqestId} - Before...`);
+        const now = Date.now();
+        return next.handle()
+            .pipe(
+                tap(() => this.logger.log(`${resuqestId} - After... ${Date.now() - now}ms`)),
+            );
+    }
+}
+----
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=middleware]
+
+=> Interceptor
+
+====
+
+== Encapsuler les appels
+
+.main.ts
+[source, typescript, highlight='1-|4']
+----
+async function bootstrap() {
+    const app = await NestFactory.create(AppModule);
+    app.setGlobalPrefix('api');
+    app.useGlobalInterceptors(new LoggingInterceptor());
+    ...
+}
+
+bootstrap();
+----
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=middleware]
+====
+
+== Intercepter et les erreurs...
+
+[source, typescript, highlight='1-|1-2|10|16-20']
+----
+@Catch()
+export class AllExceptionsFilter extends ExceptionsHandler
+  protected httpAdapter: AbstractHttpAdapter
+
+  constructor(httpAdapter: AbstractHttpAdapter)
+    super()
+    this.httpAdapter = httpAdapter
+  }
+
+  catch(exception: Error, host: ArgumentsHost) {
+    const ctx: HttpArgumentsHost = host.switchToHttp()
+    const response = ctx.getResponse()
+    const url: string = this.httpAdapter.getRequestUrl(ctx.getRequest())
+    const message: string = exception.message
+
+    if (exception instanceof HttpException) {
+      this.reply(response, exception.getStatus(), null, message, url)
+    } else {
+      this.reply(response, HttpStatus.INTERNAL_SERVER_ERROR, 'Internal Server Error', message, url)
+    }
+  }
+
+  protected reply(response: Response, httpStatus: number, error: string, message: string, url: string) {
+    const responseBody = { ... }
+    this.httpAdapter.reply(response, responseBody, httpStatus)
+}
+----
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=filters]
+====
+
+
+
+== Intercepter et les erreurs...
+
+.main.ts
+[source, typescript, highlight='1-|5']
+----
+async function bootstrap() {
+    const app = await NestFactory.create(AppModule);
+    app.setGlobalPrefix('api');
+    app.useGlobalInterceptors(new LoggingInterceptor());
+    app.useGlobalFilters(new AllExceptionsFilter(httpAdapter))
+
+    //...
+}
+
+bootstrap();
+----
+
+== Attention à l'asynchrone
+
+[%step]
+[source, typescript, highlight='1-|4-9|11-16|18-23']
+----
+@Injectable()
+export class GameServiceImpl implements GameService {
+
+  /* Retourne une promesse */
+  getStats(bonus: number): Promise<any> {
+    return this.resetCurrents()
+      .then(() => this.statisticsRepository.readAll())
+      .then((value) => this.stateService.setStatistics(value))
+  }
+
+  /* Fait une mise à jour en arrière plan - En cas d'erreur -> NodeJS casse */
+  bonusUnsafe(bonus: number): void {
+    this.resetCurrents()
+      .then(() => this.statisticsRepository.readAll())
+      .then((value) => this.stateService.setStatistics(value))
+  }
+
+  /* Catch de l'erreur pour protéger le NodeJS. */
+  bonus(bonus: number): void {
+    this.resetCurrents()
+      .then(() => this.statisticsRepository.readAll())
+      .then((value) => this.stateService.setStatistics(value))
+      .catch((error) => this.logger.error(`Error when change statistics: ${error.message}`))
+  }
+}
+
+----
+
+[NOTE.speaker]
+====
+Node est monothreder, et foncitonne par principe en asynchrone.
+Avec le jeux des promises, et si on essai d'optimiser nos éléments, on peut se retrouver à poursuivre des traitements en arrière plan en randant la main à l'appelant.
+
+* Encapsulation marche dans la requete
+* Si vous avec mis en asyncnhrone certaines actions, il ne faudra pas oublier les handlers
+====
+
+
+== Passer des informations
+
+Avec des middleware...
+
+[NOTE.speaker]
+====
+*Ce n'est pas du que du NestJS*
+
+Vous allez voir les middleware ont un comportement assez similaire avec les  intercepteurs
+
+include::{includedir}/story.adoc[tag=threadlocal]
+====
+
+[%step]
+[source, typescript, highlight='1-|1-2|3|10|4-5|6-7|17-18']
+----
+@Injectable()
+export class TokenMiddleware implements NestMiddleware {
+    use(request: any, response: any, next: () => void) {
+        const ns = getNamespace("board")!;
+        ns.run(() => {
+            let requestId = randomUUID();
+            ns.set("requestId", requestId);
+            if (request.path === '/utilisateurs' && request.method === 'POST') {
+                this.logger.log(`${requestId} - URL non filtrée : Identification`)
+                next()
+            } else {
+                /* Ne pas faire cela... c'est uniquement pour l'exemple ! */
+                let session = request.header('PRIVATE-TOKEN')
+
+                this.userService.readBySessionId(session)
+                    .then(value => {
+                        ns.set("token", value.token);
+                        this.logger.debug(`${requestId} - Token positionné dans le namespace`)
+                        next()
+                    })
+                    .catch(reason => {
+                        this.logger.warn(`${requestId} - ${JSON.stringify(reason)}`)
+                        response.status(404).send(`User's session ${session} not found`);
+                    });
+            }
+        });
+    }
+}
+----
+
+== Configurer les middlewares
+
+.entrypoint.module.ts
+[source, typescript, highlight='1-|6-8' ]
+----
+@Module({
+    controllers: [...],
+    imports: [...],
+})
+export class EntrypointModule implements NestModule {
+    configure(consumer: MiddlewareConsumer) {
+        consumer.apply(TokenMiddleware).forRoutes('');
+    }
+}
+----
+
+
+== Interceptors, middlewares et filters
+
+image:./nest-middle-filter-inter.png[]
+
+
+[NOTE.speaker]
+====
+*45 mins*
+====
