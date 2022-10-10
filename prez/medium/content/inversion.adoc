@@ -112,7 +112,7 @@ include::{includedir}/story.adoc[tag=try]
 ====
 
 [.attention.background]
-== TypeDI et Inversify
+== Un contexte pour les gouverner tous...
 
 [NOTE.speaker]
 ====
@@ -120,7 +120,9 @@ include::{includedir}/story.adoc[tag=echec]
 ====
 
 [.victoire.background, state=code]
-== La lumière...
+== Et au détour d'un tunnel ...
+
+...la lumière !
 
 [NOTE.speaker]
 ====

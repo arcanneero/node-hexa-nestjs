@@ -244,7 +244,9 @@ export class MessagesServiceImpl implements MessagesService {
 ====
 
 [.synthese.background]
-== Synthèse
+== Alors NodeJS ?
+
+image:./nodejs-icon.svg[width=20%]
 
 
 [NOTE.speaker]
