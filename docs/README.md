@@ -51,6 +51,15 @@ Raconter l'histoire d'un POC qui est devenu une application, avec quelques erran
     * Quelques points de comparaison par rapport à d'autre langages.
     * Et si c'était à refaire ?
 
+    
+### Resources
+
+* Les slides (45mins) :
+    * [Volacamp]( ./medium/index-volcamp.html#/)
+    * [Onepoint]( ./medium/index.html#/)
+* Captation vidéo :
+    * [Devoxx (A venir...)](https://www.youtube.com/watch...)
+
 ### Références
 
 * eTech Day de septembre 2022 (conférence Interne  - 20 pers.)
