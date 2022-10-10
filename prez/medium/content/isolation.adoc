@@ -2,7 +2,7 @@
 = L'isolation...
 :includedir: ../partials
 
-image:./isolation.png[width=20%]
+image:./isolation.svg[width=25%]
 
 [NOTE.speaker]
 ====
@@ -20,7 +20,7 @@ include::{includedir}/story.adoc[tag=java]
 ====
 
 [.isolation.background]
-== NPM et ses modules
+== NPM et ses packages
 
 [NOTE.speaker]
 ====

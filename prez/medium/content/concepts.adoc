@@ -2,6 +2,8 @@
 = Mais de quoi parle-t-on exactement ?
 :includedir: ../partials
 
+image::./man_write.svg[width=40%]
+
 [NOTE.speaker]
 ====
 include::{includedir}/story.adoc[tag=bases]

@@ -2,7 +2,7 @@
 = Dans les entrailles de Typescript
 :includedir: ../partials
 
-image:./typescript-icon.svg[width=20%]
+image:./man_sit.svg[width=40%]
 
 [NOTE.speaker]
 ====

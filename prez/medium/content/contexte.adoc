@@ -47,10 +47,12 @@ include::{includedir}/story.adoc[tag=meaculpa]
 ====
 
 [%notitle]
-[.histoire.background]
+[.moi.background]
 == Mise en pratiques
 
-image:./intervenants-nicolas.png[]
+image:./intervenants-nicolas.png[width=60%]
+
+Nicolas Giraud (@nicgiro)
 
 [NOTE.speaker]
 ====

@@ -16,6 +16,9 @@
 
 Mais NestJS pourrait-il me sauver ?
 
+[.credits]
+Nicolas Giraud (@nicgiro)
+
 [NOTE.speaker]
 ====
 include::{includedir}/story.adoc[tag=intro]
@@ -38,13 +41,13 @@ include::{contentdir}/un-cadre.adoc[leveloffset=+1]
 include::{contentdir}/synthese.adoc[leveloffset=+1]
 
 [.end-title.background]
-== A vous de jouer !
+== Drogué à l'hexagone, Node JS ne m'a pas vraiment aidé à rester clean ...
 
 Des questions ? +
 Des remarques ?
 
-
-TIP: @nicogiro
+[.credits]
+Nicolas Giraud (@nicgiro)
 
 [NOTE.speaker]
 ====

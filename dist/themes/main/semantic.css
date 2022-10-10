@@ -2,7 +2,7 @@
 .title h1 {
     text-transform: none;
     margin-left: 15%;
-    margin-top: 5%;
+    margin-top: 12%;
     right: 0%;
     color: dimgray;
 }
@@ -11,33 +11,20 @@
     color: dimgray
 }
 
-section.end-title {
-    padding-left: 0% !important;
-}
-
 .title .preamble {
-    padding-top: 25% !important;
-}
-
-.end-title h2 {
-    text-transform: none;
-    font-size: 3em;
+    padding-top: 15% !important;
 }
 
 div.main-title {
     background-repeat: no-repeat;
-    background-size: 16%, 18% auto ;
-    background-image: url("images/nodejs-icon.svg"), url("images/nestjs.svg");
-    background-position: 10% 40%, 90% 85%;
-    padding-left: 28%;
-    max-width: 72%;
-}
-
-div.end-title {
-    background-repeat: no-repeat;
-    background-size: 16%, 18% auto ;
-    background-image: url("images/nodejs-icon.svg"), url("images/nestjs.svg");
-    background-position: 10% 40%, 90% 85%;
+    background-size:  16%, 18% auto, 100% 100%, 100% 100%;
+    background-position: 10% 40%, 85% 75%, 0 0, 0 0;
+    background-image:
+            url("images/nodejs-icon.svg"),
+            url("images/nestjs.svg"),
+            radial-gradient(closest-side, white, 70%, white, transparent),
+            conic-gradient(from -0.125turn, #07836b, darkslateblue, #6a1520, #ffcd22, #07836b);
+    background-color: white;
     padding-left: 28%;
     max-width: 72%;
 }
@@ -48,6 +35,68 @@ section.title.present:not(.stack) {
 /* Fin première slide */
 
 
+section.end-title {
+    padding-left: 1% !important;
+}
+
+div.end-title {
+    background-repeat: no-repeat;
+    background-size:
+            10%, 12% auto,
+            9em auto,9em auto,9em auto,9em auto,
+            100% 100%, 100% 100%;
+    background-position:
+            15% 35%, 80% 70%,
+            0 10%, 0 90%, 100% 90%, 100% 10%,
+            0 0, 0 0;
+    background-image:
+            url("images/nodejs-icon.svg"),
+            url("images/nestjs.svg"),
+            url("images/man_walk.svg"),
+            url("images/man_sit.svg"),
+            url("images/man_zen.svg"),
+            url("images/man_write.svg"),
+            radial-gradient(closest-side, white, 70%, white, transparent),
+            conic-gradient(from -0.125turn, #07836b, darkslateblue, #6a1520, #ffcd22, #07836b);
+    background-color: white;
+    padding-left: 28%;
+    max-width: 72%;
+}
+
+
+.end-title h2 {
+    padding-left: 15%;
+    margin-top: 12%;
+    text-shadow: none;
+    font-size: 3em;
+    color: dimgray;
+    text-transform: none;
+}
+
+.end-title .paragraph:not(.credits) p {
+    padding-top: 11%;
+    text-shadow: none;
+    color: dimgray;
+}
+
+
+.credits p {
+    font-size: 1em;
+    position: absolute;
+    left:83%;
+    color: whitesmoke;
+    text-shadow: none;
+    padding-top: 9%;
+}
+
+.instance p {
+    font-size: 1em;
+    position: absolute;
+    color: dimgray;
+    text-shadow: none;
+    padding-top: 12%;
+}
+
 div.backgrounds .histoire {
     background-repeat: no-repeat, no-repeat, no-repeat;
     background-size: 9em auto, 9em, 15em 15em;
@@ -55,6 +104,20 @@ div.backgrounds .histoire {
     background-image: url("images/man_walk.svg"), linear-gradient(90deg, #07836b, 70%, white), url("images/page-curl.svg") ;
 }
 section.histoire.present:not(.stack) {
+    margin: 0 0 0 4em;
+}
+
+div.backgrounds .moi {
+    background-repeat: no-repeat, no-repeat, no-repeat;
+    background-size: 9em auto, 9em, 15em 15em, 30em auto;
+    background-position: 0 50%, 0 0, 100% 100%, 90% 0;
+    background-image:
+            url("images/man_walk.svg"),
+            linear-gradient(90deg, #07836b, 70%, white),
+            url("images/page-curl.svg") ,
+            url("logo/onepoint_black.png") ;
+}
+section.moi.present:not(.stack) {
     margin: 0 0 0 4em;
 }
 
@@ -124,7 +187,7 @@ div.backgrounds .synthese {
     background-repeat: no-repeat, no-repeat;
     background-size: 9em auto, 9em ;
     background-position: 0 50%, 0 0, 0 0;
-    background-image: url("images/man_wait.svg"), linear-gradient(90deg, #6C8EBF, 70%, white);
+    background-image: url("images/man_zen.svg"), linear-gradient(90deg, #6C8EBF, 70%, white);
 }
 section.synthese.present:not(.stack) {
     margin: 0 0 0 4em;
@@ -163,10 +226,14 @@ section.watch.isolation:not(.stack) {
 
 div.backgrounds .titre {
     background-repeat: no-repeat;
-    background-size: 100% 50%;
-    background-position: center top;
-    background-image: url("logo/DevFest2019_bandeau_twitter.jpg");
-    background-color: dimgray;
+    background-size:  100% 100%, 100% 100%;
+    background-position: 0 0, 0 0;
+    background-image:
+            radial-gradient(closest-side, white, 70%, white, transparent),
+            conic-gradient(from -0.125turn, #07836b, darkslateblue, #6a1520, #ffcd22, #07836b);
+    background-color: white;
+    padding-left: 28%;
+    max-width: 72%;
 }
 
 section.has-dark-background h2 {
@@ -174,15 +241,15 @@ section.has-dark-background h2 {
 }
 
 section.titre.present:not(.stack) {
-    background-color: white;
-    border-radius: 100em;
-    height: 60%;
-    padding-top: 20%;
+    background-color: transparent;
+    height: 70%;
     margin: 0 0 0 0;
+    color: dimgrey;
 }
 
 .titre h2, .titre p {
     text-shadow: none;
+    color: dimgrey;
 }
 
 .code pre {

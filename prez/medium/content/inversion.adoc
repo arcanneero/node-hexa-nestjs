@@ -2,7 +2,7 @@
 = Inversion de contrôle
 :includedir: ../partials
 
-image:./inversion.png[width=20%]
+image:./inversion.svg[width=25%]
 
 
 [NOTE.speaker]
@@ -40,6 +40,8 @@ class UsersController {
 
 [.inversion.background]
 == Inversify
+
+image:./inversify.png[width=20%]
 
 [NOTE.speaker]
 ====

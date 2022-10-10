@@ -199,7 +199,7 @@ Mais quand on lit la doc, ca correspond complètement à ce que je souhaite fair
 ...par annotation
 
 [%step]
-[source, typescript, highlight='1-|1|6-7|8|12-13|21-22']
+[source, typescript, highlight='1-|1|6-7|8|12-13|17-18']
 ----
 @Controller('utilisateurs')
 export class UtilisateursController {
@@ -426,7 +426,7 @@ include::{includedir}/story.adoc[tag=threadlocal]
 ====
 
 [%step]
-[source, typescript, highlight='1-|1-2|3|10|4-5|6-7|17-18']
+[source, typescript, highlight='1-|1-2|3|10|4-5|6-7|17-18|23']
 ----
 @Injectable()
 export class TokenMiddleware implements NestMiddleware {
