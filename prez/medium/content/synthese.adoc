@@ -1,13 +1,16 @@
+[.titre.background]
+[%notitle]
 = Une belle aventure ?
 :includedir: ../partials
 
-image:./livre.png[]
+image:./man_zen.svg[width=50%]
 
 [NOTE.speaker]
 ====
 include::{includedir}/story.adoc[tag=synthese]
 ====
 
+[.synthese.background]
 == Hexa, un contexte clean ?
 
 image:./hexa-all.png[]
@@ -18,6 +21,7 @@ include::{includedir}/story.adoc[tag=hexa-js]
 ====
 
 [transition=fade-out]
+[.synthese.background]
 == Les bons outils
 
 image:./all-synthese-icon.png[width=60%]
@@ -28,6 +32,7 @@ include::{includedir}/story.adoc[tag=tools]
 ====
 
 [transition=fade]
+[.synthese.background]
 == Les bons outils
 
 image:./all-synthese-js.png[width=60%]
@@ -39,11 +44,13 @@ image:./all-synthese-js.png[width=60%]
 ====
 
 [transition=fade-in]
+[.synthese.background]
 == Les bons outils
 
 image:./all-synthese-nest.png[width=60%]
 
 
+[.victoire.background]
 == Un vrai cadre de travail...
 
 image:./nestjs.svg[]
@@ -54,6 +61,7 @@ include::{includedir}/story.adoc[tag=framework]
 ====
 
 
+[.astuce.background]
 == Et si c'était à refaire ?
 
 [%step]

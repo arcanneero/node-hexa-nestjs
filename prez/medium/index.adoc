@@ -11,6 +11,8 @@
 :includedir: partials
 :contentdir: content
 :imagesdir: ./images
+:revealjs_transition: slide
+:revealjs_backgroundTransition: fade
 
 Mais NestJS pourrait-il me sauver ?
 
@@ -35,7 +37,7 @@ include::{contentdir}/un-cadre.adoc[leveloffset=+1]
 
 include::{contentdir}/synthese.adoc[leveloffset=+1]
 
-[.main-title.background]
+[.end-title.background]
 == A vous de jouer !
 
 Des questions ? +

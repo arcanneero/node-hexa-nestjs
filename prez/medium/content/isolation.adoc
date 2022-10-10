@@ -1,3 +1,4 @@
+[.titre.background]
 = L'isolation...
 :includedir: ../partials
 
@@ -8,6 +9,7 @@ image:./isolation.png[width=20%]
 include::{includedir}/story.adoc[tag=segregations]
 ====
 
+[.isolation.background]
 == Ca marche comment ailleurs ?
 
 image:./hexa-focus-invers.png[width=60%]
@@ -17,6 +19,7 @@ image:./hexa-focus-invers.png[width=60%]
 include::{includedir}/story.adoc[tag=java]
 ====
 
+[.isolation.background]
 == NPM et ses modules
 
 [NOTE.speaker]
@@ -24,8 +27,8 @@ include::{includedir}/story.adoc[tag=java]
 include::{includedir}/story.adoc[tag=npm]
 ====
 
+[.isolation.background, state=code]
 == Les workspaces
-
 
 .package.json (app)
 [source, json]
@@ -43,6 +46,7 @@ include::{includedir}/story.adoc[tag=npm]
 ----
 
 [%notitle]
+[.isolation.background, state=code]
 == Par dépendances
 
 .package.json (app-business)
@@ -68,6 +72,7 @@ include::{includedir}/story.adoc[tag=npm]
 <1> Autres dépendances minimales (pas d'éléments techniques dans le domaine)
 
 [%notitle]
+[.isolation.background, state=code]
 == accès data
 
 .package.json (app-data)
@@ -93,6 +98,7 @@ include::{includedir}/story.adoc[tag=npm]
 <1> Autres dépendances techniques pour votre module de base de données.
 
 [%notitle]
+[.isolation.background, state=code]
 == Et on assemble !
 
 .package.json (app-server)

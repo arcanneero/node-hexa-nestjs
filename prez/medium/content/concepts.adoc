@@ -1,7 +1,6 @@
+[.titre.background]
 = Mais de quoi parle-t-on exactement ?
 :includedir: ../partials
-
-image::./destructure.jpg[]
 
 [NOTE.speaker]
 ====
@@ -9,6 +8,7 @@ include::{includedir}/story.adoc[tag=bases]
 ====
 
 [%notitle]
+[.vocabulaire.background]
 == Un domain unique...
 
 image::./hexa-domain.png[width=30%]
@@ -19,6 +19,7 @@ include::{includedir}/story.adoc[tag=DDD]
 ====
 
 [%notitle]
+[.vocabulaire.background]
 == Des sources de données
 
 image::./hexa-domain-spi.png[width=60%]
@@ -31,6 +32,7 @@ WARN: On peut considérer ces SPI comme un même ensemble, le métier n'ayant pa
 ====
 
 [%notitle]
+[.vocabulaire.background]
 == Et on expose...
 
 image::./hexa-domain-api.png[width=60%]
@@ -41,6 +43,7 @@ include::{includedir}/story.adoc[tag=api]
 ====
 
 [%notitle]
+[.vocabulaire.background]
 == Isolation forte
 
 image::./hexa-all.png[width=100%]
@@ -51,6 +54,7 @@ include::{includedir}/story.adoc[tag=haxagone]
 ====
 
 [%notitle]
+[.vocabulaire.background]
 == Par inversion de controle
 
 image::./hexa-focus-invers.png[width=100%]
@@ -61,6 +65,7 @@ include::{includedir}/story.adoc[tag=focus]
 ====
 
 [%notitle]
+[.synthese.background]
 == En synthèse
 
 image::./all-synthese.png[width=60%]
@@ -74,6 +79,7 @@ En plus de la notion de domaine, on va se focalise sur 3 concepts importants pou
 * Isolation des composants
 ====
 
+[.histoire.background]
 == Et c'est parti...
 
 [NOTE.speaker]
@@ -83,6 +89,7 @@ include::{includedir}/story.adoc[tag=gogogo]
 ====
 
 
+[.attention.background]
 == Disclamer
 
 [NOTE.speaker]

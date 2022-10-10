@@ -1,3 +1,4 @@
+[.titre.background]
 = Dans les entrailles de Typescript
 :includedir: ../partials
 
@@ -10,9 +11,10 @@ Commencons par regarder les éléments natifs au langage...
 On va parler modèle, Programmation Orienté Objet et Interface.
 ====
 
+[.existant.background, state=code]
 == Définir son modèle
 
-[source]
+[source, typescript]
 ----
 //Endpoint
 interface RestUser {
@@ -42,6 +44,7 @@ include::{includedir}/story.adoc[tag=define]
 ====
 
 [%notitle, transition=fade-out]
+[.existant.background, state=code]
 == Transmission
 
 [source, typescript,  highlight='3..6|14..16|25-27|14..16|3..6|8' ]
@@ -92,6 +95,7 @@ Et c'est normal, il manque un attribut à RestUser pour apeller le User "Domain"
 ====
 
 [%notitle, transition=fade-in]
+[.attention.background, state=code]
 == Oui, mais...
 
 [source, typescript, highlight=8]
@@ -136,6 +140,7 @@ class UserRepository {
 include::{includedir}/story.adoc[tag=interface]
 ====
 
+[.astuce.background, state=code]
 == Un petit de tricks...
 
 [%step]
@@ -164,6 +169,7 @@ On a des mappers peu élégants.
 include::{includedir}/story.adoc[tag=builder]
 ====
 
+[.astuce.background, state=code]
 == ... qui pique !
 
 [source, typescript]
@@ -189,6 +195,7 @@ export class ObjectBuilder<Target, Supplied> {
 include::{includedir}/story.adoc[tag=builder]
 ====
 
+[.existant.background, state=code]
 == Vous avez dit bizarre ?
 
 [%step]
@@ -200,6 +207,7 @@ include::{includedir}/story.adoc[tag=builder]
 include::{includedir}/story.adoc[tag=odd-types]
 ====
 
+[.existant.background, state=explication]
 == Un des effets de la transpilation
 
 [source, typescript]
@@ -235,6 +243,7 @@ export class MessagesServiceImpl implements MessagesService {
 => on en reparle !!!
 ====
 
+[.synthese.background]
 == Synthèse
 
 

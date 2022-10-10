@@ -1,8 +1,10 @@
-[.story.background]
+[transition=fade]
+[%notitle]
+[.titre.background]
 = L'histoire
 :includedir: ../partials
 
-image:./livre.png[]
+image:./walking-man.svg[width=40%]
 
 [NOTE.speaker]
 ====
@@ -10,10 +12,10 @@ include::{includedir}/story.adoc[tag=errances]
 ====
 
 [%notitle]
-[.story.background]
+[.histoire.background]
 == Mes errances...
 
-image:./millefeuille.jpg[]
+image:./millefeuille.jpg[width=60%]
 
 [NOTE.speaker]
 ====
@@ -21,6 +23,7 @@ include::{includedir}/story.adoc[tag=couches]
 ====
 
 [%notitle]
+[.histoire.background]
 == La lumière...
 
 image:./postit.jpg[]
@@ -31,6 +34,7 @@ include::{includedir}/story.adoc[tag=lumiere]
 ====
 
 [%notitle]
+[.histoire.background]
 == La voie du craft
 
 image:./swcrafters-nantes.jpg[]
@@ -43,6 +47,7 @@ include::{includedir}/story.adoc[tag=meaculpa]
 ====
 
 [%notitle]
+[.histoire.background]
 == Mise en pratiques
 
 image:./intervenants-nicolas.png[]
@@ -57,6 +62,7 @@ Si je ne veux pas être jugé, je dois vous donner mon contexte pour vous aider 
 
 
 [transition=fade-out]
+[.histoire.background]
 == Un client dans le navigateur !
 
 [%step]
@@ -68,6 +74,7 @@ include::{includedir}/story.adoc[tag=navigateur]
 ====
 
 [transition=fade-in]
+[.histoire.background]
 == Un client dans le navigateur !
 
 image:./angular-icon.svg[height=250em]
@@ -78,6 +85,7 @@ include::{includedir}/story.adoc[tag=navigateur]
 ====
 
 [transition=fade-out]
+[.histoire.background]
 == Ajout d'un backend
 
 [%step]
@@ -89,6 +97,7 @@ include::{includedir}/story.adoc[tag=backend]
 ====
 
 [transition=fade-in]
+[.histoire.background]
 == Ajout d'un backend
 
 [%step]
@@ -99,6 +108,7 @@ image:./nodejs-icon.svg[]
 include::{includedir}/story.adoc[tag=node]
 ====
 
+[.histoire.background]
 == Mais ca ne fait que commencer !
 
 [NOTE.speaker]

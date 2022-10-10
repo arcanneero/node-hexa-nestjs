@@ -1,4 +1,6 @@
+[.titre.background]
 = Injection de dépendance
+:includedir: ../partials
 
 image:./injection.png[width=20%]
 
@@ -10,6 +12,7 @@ Regardons dans l'écosystème JS/TS les librairies qui peuvents tous aider.
 include::{includedir}/story.adoc[tag=injection]
 ====
 
+[.injection.background]
 == TypeDI
 
 [NOTE.speaker]
@@ -17,6 +20,7 @@ include::{includedir}/story.adoc[tag=injection]
 include::{includedir}/story.adoc[tag=typedi]
 ====
 
+[.injection.background, state=code]
 == Mise en place
 
 [source, typescript, highlight='1|8|10-12|15|1-17']
@@ -48,6 +52,7 @@ class UsersController {
 ====
 
 
+[.injection.background, state=code]
 == Configuration
 
 .main.ts
