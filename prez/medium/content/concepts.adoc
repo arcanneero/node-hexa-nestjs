@@ -94,7 +94,7 @@ include::{includedir}/story.adoc[tag=gogogo]
 
 
 [.attention.background]
-== Disclamer
+== Disclaimer
 
 image:./destructure.jpg[width=60%]
 
