@@ -1,4 +1,4 @@
-[transition=fade]
+[transitQQWAAion=fade]
 [%notitle]
 [.titre.background]
 = L'histoire
