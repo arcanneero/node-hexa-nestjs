@@ -55,6 +55,7 @@ Raconter l'histoire d'un POC qui est devenu une application, avec quelques erran
 ### Resources
 
 * Les slides (45mins) :
+    * [NantesJs #68](./medium/index-nantesjs.html#/)
     * [Volacamp]( ./medium/index-volcamp.html#/)
     * [Onepoint]( ./medium/index.html#/)
 * Captation vidéo :
