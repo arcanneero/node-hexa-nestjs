@@ -1,0 +1,63 @@
+[.main-title.background]
+= Drogué à l'hexagone, Node JS ne m'a pas vraiment aidé à rester clean ...
+:source-highlighter: highlightjs
+:revealjs_theme: league
+:revealjs_progress: true
+:revealjs_slideNumber: true
+:revealjs_history: true
+:revealjs_defaultTiming: 30
+:defaultTiming: 30
+:customcss: style-nantesjs.css
+:includedir: partials
+:contentdir: content
+:imagesdir: ./images
+:revealjs_transition: slide
+:revealjs_backgroundTransition: fade
+
+Mais NestJS pourrait-il me sauver ?
+
+[.credits]
+Nicolas Giraud (@nicgiro)
+
+[.instance]
+NantesJS #68
+
+[NOTE.speaker]
+====
+include::{includedir}/story.adoc[tag=intro]
+====
+
+include::{contentdir}/contexte.adoc[leveloffset=+1]
+
+include::{contentdir}/concepts.adoc[leveloffset=+1]
+
+include::{contentdir}/typescript.adoc[leveloffset=+1]
+
+include::{contentdir}/injection.adoc[leveloffset=+1]
+
+include::{contentdir}/inversion.adoc[leveloffset=+1]
+
+include::{contentdir}/isolation.adoc[leveloffset=+1]
+
+include::{contentdir}/un-cadre.adoc[leveloffset=+1]
+
+include::{contentdir}/synthese.adoc[leveloffset=+1]
+
+[.end-title.background]
+== Drogué à l'hexagone, Node JS ne m'a pas vraiment aidé à rester clean ...
+
+Des questions ? +
+Des remarques ?
+
+[.credits]
+Nicolas Giraud (@nicgiro)
+
+[.instance]
+NantesJS #68
+
+[NOTE.speaker]
+====
+====
+
+include::{contentdir}/references.adoc[leveloffset=+1]
+
