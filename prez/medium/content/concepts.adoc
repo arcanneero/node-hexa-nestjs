@@ -82,8 +82,7 @@ En plus de la notion de domaine, on va se focalise sur 3 concepts importants pou
 ====
 
 [.histoire.background]
-== Et c'est parti...
-
+== Et c'est parti.
 image:./typescript-icon.svg[]
 
 [NOTE.speaker]
@@ -95,8 +94,6 @@ include::{includedir}/story.adoc[tag=gogogo]
 
 [.attention.background]
 == Disclaimer
-
-image:./destructure.jpg[width=60%]
 
 [NOTE.speaker]
 ====
