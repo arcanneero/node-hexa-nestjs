@@ -313,7 +313,7 @@ include::{includedir}/story.adoc[tag=middleware]
 ====
 
 [.astuce.background, state=code]
-== Intercepter et les erreurs...
+== Intercepter les erreurs...
 
 [source, typescript, highlight='1-|1-2|10|16-20']
 ----
@@ -350,7 +350,7 @@ include::{includedir}/story.adoc[tag=filters]
 ====
 
 [.astuce.background, state=code]
-== Intercepter et les erreurs...
+== Intercepter les erreurs...
 
 .main.ts
 [source, typescript, highlight='1-|5']
