@@ -55,13 +55,17 @@ Raconter l'histoire d'un POC qui est devenu une application, avec quelques erran
 ### Resources
 
 * Les slides (45mins) :
+    * [BDX I/O 2022](./medium/index-bdxio.html#/)
+    * [NantesJs #68](./medium/index-nantesjs.html#/)
     * [Volacamp]( ./medium/index-volcamp.html#/)
     * [Onepoint]( ./medium/index.html#/)
 * Captation vidéo :
     * [Volcamp (A venir...)](https://www.youtube.com/watch...)
+    * [BDX I/O](https://youtu.be/NAhi9IsCJP4?t=3057)
 
 ### Références
 
+* BDX I/O 2022 (100 pers.)
+* Nantes JS #68 (30 pers.)
+* Volcamp 2022  (100 pers.)
 * eTech Day de septembre 2022 (conférence Interne  - 20 pers.)
-* [Programmé] Volcamp 2022  (??? pers.)
-* [Programmé] BDX I/O 2022 (??? pers.)
